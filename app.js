@@ -1,14 +1,9 @@
-const express = require('express'); //Importacion del modulo express
+import Server from './src/server.js';
+import dotenv  from 'dotenv';
 
-const app = express(); //Definir que app utilizar la funcion de express
 
-//MIDLEWARES
 
-app.get("/", (req, res) => {
-    res.send("hello world");
-});
 
-//Definir el puerto del servidor
-app.listen(3000, ()=>{
-    console.log("Server corriendo en puerto", 3000);
-});
+dotenv.config(); //habilita las variables de entorno
+
+const server = new Server();
