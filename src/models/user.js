@@ -11,7 +11,17 @@ User.init({
         primaryKey: true,
         autoIncrement: true
     },
-    username: {
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+    },
+    lastname: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+    },
+    age: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true
@@ -24,12 +34,8 @@ User.init({
         type: DataTypes.STRING,
         allowNull: false,
         unique: true
-    },
-    age: {
-        type: DataTypes.STRING,
-        allowNull: false
     }
-},
+   },
     {
         sequelize,
         modelName: 'User'
