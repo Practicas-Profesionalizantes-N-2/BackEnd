@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
-import nosotrosRouter from './routes/nosotros.routes.js';
+import LoginRoutes from './routes/login.routes.js';
 import sequelize from './db/config.js';
 
 
@@ -27,7 +27,9 @@ class Server{
 
 
     routes(){
-        this.app.use('/api', nosotrosRouter)
+        this.app.use('/api', LoginRoutes)
+        
+
     }
 
 
