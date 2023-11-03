@@ -1,8 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 import LoginRoutes from './routes/login.routes.js';
+import UserRoutes from './routes/user.routes.js';
 
-
+//este es el archivo principal para configurar todo nuestro entorno
 
 class Server{
 
@@ -25,7 +26,8 @@ class Server{
 
 
     routes(){
-        this.app.use('/api', LoginRoutes)
+        this.app.use('/api/auth', LoginRoutes);
+        this.app.use('/api/users', UserRoutes );
 
     }
 
