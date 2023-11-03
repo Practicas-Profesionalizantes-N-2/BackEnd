@@ -18,6 +18,8 @@ class Server{
         this.listen();
 
         this.routes();
+
+        this.connectionDb()
     }
 
 
