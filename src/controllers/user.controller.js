@@ -1,6 +1,12 @@
 import User from '../models/user.js';
+<<<<<<< HEAD
 import bcrypt from 'bcryptjs';
 
+=======
+
+
+//metodo para traer los usuarios en lista 
+>>>>>>> 661312974194720fb8d3d5554d267a6f6f0cdaf6
 export const getAllUsers = async (req, res) => {
 
     try {
@@ -19,6 +25,7 @@ export const getAllUsers = async (req, res) => {
 }
 
 
+<<<<<<< HEAD
 export const loginUser = (req, res) => {
 
     res.status(200).json({
@@ -62,3 +69,40 @@ export const createUser = async (req,res) => {
     const user = await User.create(nuevoUsuario);
 
 }
+=======
+export const getUserById = (req,res) => {
+
+    res.status(200).json({
+        msg: 'show user by id'
+    })
+
+}
+
+export const createUser = (req,res) => {
+
+    res.status(200).json({
+        msg: 'create User'
+    })
+
+}
+
+export const updateUserById = (req,res) => {
+
+    const  {id} = req.body
+ 
+    res.status(200).json({
+        msg: 'update user by id'
+    })
+
+}
+
+export const deleteUser = (req,res) => {
+
+    const {id} = req.body
+
+    res.status(200).json({
+        msg: 'show user by id'
+    })
+
+}
+>>>>>>> 661312974194720fb8d3d5554d267a6f6f0cdaf6
