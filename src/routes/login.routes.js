@@ -2,7 +2,7 @@ import { Router } from "express";
 import { loginUser,createUser, getAllUsers } from "../controllers/user.controller.js";
 import { check } from "express-validator";
 import { validarCampos } from "../middlewares/validateCampos.js";
-import { authenticateLogin } from "../middlewares/authenticateLogin.js";
+import { loginAuthentication } from "../middlewares/loginAuthentication.js";
 import { verifySignUp } from  "../middlewares/verifySignup.js";
 
 
@@ -21,12 +21,12 @@ router.post('/register' , [
 ], createUser)
 
 
-
+//peticion POST login verificacion credenciales
 router.post('/login', [
     check('email', 'El Email es requerido.').isEmail(),
     check('password', 'La contraseña es requerida.').not().isEmpty(),
     validarCampos, 
-    authenticateLogin,
+    loginAuthentication,
     loginUser,
 ], async (req, res) => {
     loginUser (req, res);

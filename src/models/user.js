@@ -14,17 +14,17 @@ User.init({
     name: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: false
     },
     lastname: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: false
     },
     age: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: false
     },
     password: {
         type: DataTypes.STRING,

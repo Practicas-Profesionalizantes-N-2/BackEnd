@@ -1,6 +1,9 @@
+//verificacion de credenciales e informacion valida.
+
+
 import bcrypt from 'bcryptjs';
 import User from '../models/user.js';
-export const authenticateLogin = async (req, res, next) => {
+export const loginAuthentication = async (req, res, next) => {
     const { email, password } = req.body;
 
     try {
