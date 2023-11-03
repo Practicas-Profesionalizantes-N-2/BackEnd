@@ -2,6 +2,7 @@ import { Router } from "express";
 import { loginUser,registerUser } from "../auth/auth.controller.js";
 import { check } from "express-validator";
 import { validarCampos } from "../middlewares/validateCampos.js";
+import { verifySignUp } from "../middlewares/verifySignUp.js";
 
 const router = Router();
 
@@ -15,6 +16,7 @@ router.post('/register',[
     check('age', 'debe contener dos numeros').isLength({max: 2}),
     check('email', 'el mail debe ser correcto').isEmail().not().isEmpty(),
     validarCampos,
+    verifySignUp,
 ], registerUser)
 
 

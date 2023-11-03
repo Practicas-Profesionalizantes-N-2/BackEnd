@@ -10,11 +10,13 @@ class Server{
 
 
     constructor(){
+        
         this.app = express();
 
         this.middlewares();
 
         this.listen();
+
         this.routes();
     }
 
@@ -34,6 +36,15 @@ class Server{
 
     connectionDb(){
 
+        console.log("me estoy ejecutando")
+        sequelize.authenticate()
+        .then(()=>{
+            console.log('Conexion exitosa a la BD')
+        })
+        .catch((error)=>{
+            console.log('error al conectar con la BD', error)
+        })
+
 
     }
 
@@ -43,9 +54,6 @@ class Server{
         })
 
     }
-
-
-
 
 }
 
