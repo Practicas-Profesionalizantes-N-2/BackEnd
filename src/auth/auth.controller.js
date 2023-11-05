@@ -1,72 +1,81 @@
 import bcrypt from 'bcryptjs';
-import User from '../models/user';
-import jwt from 'jsonwebtoken';
-import config from '../../config';
+import User from '../models/user.js';
 
 
-export const registerUser = async (req,res) => {
+//funcion que pueda registrarse un usuario a partir de ciertas credenciales necesarias como nombre,apellido,etc
+export const registerUser = async (req, res) => {
 
-    const {name,lastname,age, password,email} = req.body;
+    //extraigo del cuerpo de la solicitud los datos que ingresa el usuario
+    const { name, lastname, age, password, email } = req.body;
 
 
     try {
 
-        const user = await User.create({name,lastname,age,password,email})
-
+        //se encripta la contraseña por mas seguridad
         const salt = 10;
         const hashPassword = await bcrypt.hash(password, salt);
-    
-        if(!hashPassword){
-            res.status(400).json({msg: 'error al encriptar contraseña'})
+
+
+        //aca se guarda el usuario en la base de datos pasandole los parametros mencionados anteriormente
+        const user = await User.create({ name, lastname, age, password: hashPassword, email })
+
+        
+        //valida si la contraseña fue encriptada o no, si hubo error tire un codigo 400,de error
+        if (!hashPassword) {
+            res.status(400).json({ msg: 'error al encriptar contraseña' })
         }
-        else{
+        //pero si fue correcto, mande un mensaje avisando que fue creado correctamente
+        else {
             res.status(201).json({
                 msg: 'creado correctamente',
-                name,
-                lastname,
-                age,
-                password,
-                email,
-                hashPassword
+                user
             })
         }
-        
+
+
+        //capturamos cualquier tipo de error que se este pasando por alto
     } catch (error) {
-        res.status(500).json({msg: 'error in create user'}, error)
+        console.log(error)
+       
     }
 
-  
+
 }
 
 
 
+//funcion para que un usuario inice sesion con su cuenta ya creada
 export const loginUser = async (req, res) => {
 
-    const {email, password} = req.body
+    //capturamos los campos que se pasen por el cuerpo de la solicitud
+    const { email, password } = req.body
 
 
     try {
 
+        //buscamos en nuestra base de datos un usuario en donde se cumpla la siguiente solicitud
         const userFound = await User.findOne({
-            where: {email: email}
+            //busca el igual donde el email ingresado sea igual al que este guardado en la base
+            where: { email: email }
         })
 
-        if(!userFound) return res.status(500).json({msg: 'user not found'})
+        //en caso que no coincidan, lance un error 500 que no se encontro el usuario
+        if (!userFound) return res.status(500).json({ msg: 'user not found' })
 
 
+        //aca comprobamos si la contraseña que ingresa es la misma que este en la base
         const matchPassword = await bcrypt.compare(password, userFound.password)
 
-        if(!matchPassword) return res.status(500).json({msg: 'invalid password'})
+        //si la contraseña no coincide, lance un error 500 diciendo que la contraseña es invalida
+        if (!matchPassword) return res.status(500).json({ msg: 'invalid password' })
 
 
-        const token = jwt.sign({id: userFound.id}, config.SECRET, {
-            expiresIn: 86400 //24h in seconds
-        } )
-        
-        res.status(200).json({token: token}, {msg: 'login success'})
+        //si todo lo otro funciono, avise que se logueo con exito
+        res.status(200).json({ msg: 'login success' });
 
     } catch (error) {
-        res.status(500).json({msg: 'internal server error'}, error)
+        //captura un error en caso que lo anterior falle
+        res.status(500).json({ msg: 'internal server error' }, error)
     }
 
 }

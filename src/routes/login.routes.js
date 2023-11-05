@@ -4,6 +4,10 @@ import { check } from "express-validator";
 import { validarCampos } from "../middlewares/validateCampos.js";
 import { verifySignUp } from "../middlewares/verifySignUp.js";
 
+
+//aca definimos las rutas por donde se van a ubicar cada controlador
+//por ende debemos tener cuidado que vamos a escribir, por que si se escribe mal,lanza un error de ruta
+
 const router = Router();
 
 //enpoint para loguear un usuario, una vez se haya registrado.
@@ -18,6 +22,9 @@ router.post('/register',[
     validarCampos,
     verifySignUp,
 ], registerUser)
+
+//el registro tiene varios metodos de validaciones, como middlewares.
+//de esta manera es mas seguro que nadie ingrese datos erroneos o no correspondientes.
 
 
 

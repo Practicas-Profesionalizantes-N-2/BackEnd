@@ -1,7 +1,5 @@
 import { Router } from "express";
-import { check } from "express-validator";
-import { validarCampos } from "../middlewares/validateCampos.js";
-import { createUser, getAllUsers, getUserById, updateUserById } from "../controllers/user.controller";
+import { createUser, getAllUsers, getUserById, updateUserById } from "../controllers/user.controller.js";
 
 const router = Router();
 
