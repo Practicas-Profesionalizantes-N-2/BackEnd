@@ -1,3 +1,2 @@
 # BackEnd
-Repositorio para trabajos en el area de backend
-Lucas
+Rama de trabajo de Agustin Gonzalez
