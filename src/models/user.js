@@ -21,14 +21,11 @@ User.init({
         allowNull: false,
         unique: true
     },
-<<<<<<< HEAD
-=======
     age: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true
     },
->>>>>>> 661312974194720fb8d3d5554d267a6f6f0cdaf6
     password: {
         type: DataTypes.STRING,
         allowNull: false
@@ -37,17 +34,8 @@ User.init({
         type: DataTypes.STRING,
         allowNull: false,
         unique: true
-<<<<<<< HEAD
-    },
-    age: {
-        type: DataTypes.STRING,
-        allowNull: false
-    }
-},
-=======
     }
    },
->>>>>>> 661312974194720fb8d3d5554d267a6f6f0cdaf6
     {
         sequelize,
         modelName: 'User'
@@ -56,19 +44,11 @@ User.init({
 
 User.sync()
     .then(() => {
-<<<<<<< HEAD
-        console.log('La tabla de usuarios ha sido creada');
-    })
-    .catch((error) => {
-        console.error('Error al crear la tabla de usuarios: ', error);
-    });
-=======
     console.log('La tabla de usuarios ha sido creada');
 })
     .catch((error) => {
     console.error('Error al crear la tabla de usuarios: ', error);
 });
 
->>>>>>> 661312974194720fb8d3d5554d267a6f6f0cdaf6
 
 export default User;
