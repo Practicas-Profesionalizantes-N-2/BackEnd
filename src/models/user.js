@@ -14,17 +14,17 @@ User.init({
     name: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: false
     },
     lastname: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: false
     },
     age: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: false
     },
     password: {
         type: DataTypes.STRING,
@@ -44,11 +44,10 @@ User.init({
 
 User.sync()
     .then(() => {
-    console.log('La tabla de usuarios ha sido creada');
-})
+        console.log('La tabla de usuarios ha sido creada');
+    })
     .catch((error) => {
-    console.error('Error al crear la tabla de usuarios: ', error);
-});
-
+        console.error('Error al crear la tabla de usuarios: ', error);
+    });
 
 export default User;

@@ -1,21 +1,39 @@
 import { Router } from "express";
-import { loginUser,registerUser } from "../auth/auth.controller.js";
+import { loginUser,createUser, getAllUsers } from "../controllers/user.controller.js";
 import { check } from "express-validator";
 import { validarCampos } from "../middlewares/validateCampos.js";
+import { loginAuthentication } from "../middlewares/loginAuthentication.js";
+import { verifySignUp } from  "../middlewares/verifySignup.js";
+
 
 const router = Router();
 
-//enpoint para loguear un usuario, una vez se haya registrado.
+
 router.get('/login', loginUser);
+router.get('/users', getAllUsers);
 
 
-//endpoint para poder registrar un usuario. Los metodos check, sirven para hacer validaciones extras antes de poder hacer un registro en la base de datos.
-router.post('/register',[
-    check('name', 'debe contener nombre').isLength({min: 5}),
+router.post('/register' , [
+    check('name', 'debe contener nombre, ').isLength({min: 5}),
     check('age', 'debe contener dos numeros').isLength({max: 2}),
     check('email', 'el mail debe ser correcto').isEmail().not().isEmpty(),
-    validarCampos,
-], registerUser)
+    validarCampos, verifySignUp, 
+], createUser)
+
+
+//peticion POST login verificacion credenciales
+router.post('/login', [
+    check('email', 'El Email es requerido.').isEmail(),
+    check('password', 'La contraseña es requerida.').not().isEmpty(),
+    validarCampos, 
+    loginAuthentication,
+    loginUser,
+], async (req, res) => {
+    loginUser (req, res);
+    
+});
+    
+
 
 
 

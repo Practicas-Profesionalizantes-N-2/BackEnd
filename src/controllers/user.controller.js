@@ -1,6 +1,5 @@
 import User from '../models/user.js';
-
-
+import bcrypt from 'bcryptjs';
 //metodo para traer los usuarios en lista 
 export const getAllUsers = async (req, res) => {
 
@@ -19,39 +18,44 @@ export const getAllUsers = async (req, res) => {
     }
 }
 
-
-export const getUserById = (req,res) => {
+//metodo login de usuario, sesion y token a implementar...
+export const loginUser = (req, res) => {
 
     res.status(200).json({
-        msg: 'show user by id'
+        msg: 'logueado con exito'
     })
+
 
 }
 
-export const createUser = (req,res) => {
+export const createUser = async (req,res) => {
 
-    res.status(200).json({
-        msg: 'create User'
-    })
+    const {name,lastname,age, password,email} = req.body;
 
-}
+    const salt = 10;
+    const hashPassword = await bcrypt.hash(password, salt);
+    const nuevoUsuario = {
+        name,
+        lastname,
+        age,
+        password: hashPassword,
+        email
+    };
 
-export const updateUserById = (req,res) => {
-
-    const  {id} = req.body
- 
-    res.status(200).json({
-        msg: 'update user by id'
-    })
-
-}
-
-export const deleteUser = (req,res) => {
-
-    const {id} = req.body
-
-    res.status(200).json({
-        msg: 'show user by id'
-    })
-
+    if(!hashPassword){
+        res.status(400).json({msg: 'error al encriptar contraseña'})
+    }
+    else{
+        res.status(201).json({
+            msg: 'creado correctamente',
+            name,
+            lastname,
+            age,
+            password,
+            email,
+            hashPassword
+        })
+    }
+    const user = await User.create(nuevoUsuario);
+    
 }
