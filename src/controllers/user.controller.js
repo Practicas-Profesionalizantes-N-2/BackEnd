@@ -4,12 +4,14 @@ import bcrypt from 'bcryptjs';
 export const getAllUsers = async (req, res) => {
 
     try {
+         //busca en la base de datos todos los usuarios que este almacenados
         const users = await User.findAll();
         res.status(200).json({
             users,
             ok: true
         })
     }
+    //capturar un error y lo muestre por consola.
     catch (error) {
         console.error(error);
         res.status(500).json({
@@ -27,7 +29,7 @@ export const loginUser = (req, res) => {
 
 
 }
-
+//metodo para crear un usuario
 export const createUser = async (req,res) => {
 
     const {name,lastname,age, password,email} = req.body;
