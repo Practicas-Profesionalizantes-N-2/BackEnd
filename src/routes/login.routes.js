@@ -3,7 +3,7 @@ import { loginUser,createUser, getAllUsers } from "../controllers/user.controlle
 import { check } from "express-validator";
 import { validarCampos } from "../middlewares/validateCampos.js";
 import { loginAuthentication } from "../middlewares/loginAuthentication.js";
-import { verifySignUp } from  "../middlewares/verifySignup.js";
+import { verifySignUp } from  "../middlewares/verifySignUp.js";
 
 
 const router = Router();
