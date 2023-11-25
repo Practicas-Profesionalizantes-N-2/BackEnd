@@ -6,10 +6,10 @@ import { Sequelize } from 'sequelize';
 
 const sequelize = new Sequelize(
     'PracticasProfII',
-    'root',
-    '',
+    'admin',
+    'Bocateamo',
     {
-        host: "172.31.9.218",
+        host: "database-practicas.c5mmp0kpjhya.us-east-2.rds.amazonaws.com",
         dialect: 'mysql'
     }
 );
