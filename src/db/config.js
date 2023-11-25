@@ -5,7 +5,7 @@ import { Sequelize } from 'sequelize';
 //que tipo de base de dato es
 
 const sequelize = new Sequelize(
-    'PracticasProfII',
+    'practicasprofii',
     'admin',
     'Bocateamo',
     {
