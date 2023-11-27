@@ -8,13 +8,13 @@ import { verifySignUp } from  "../middlewares/verifySignUp.js";
 
 const router = Router();
 
-
-router.get('/login', loginUser);
+//Ruta para obtener todos los usuarios en la base de datos
 router.get('/users', getAllUsers);
 
 
+//ruta para que el usuario pueda registrarse
 router.post('/register' , [
-    check('name', 'debe contener nombre, ').isLength({min: 5}),
+    check('name', 'debe contener al menos 3 caracteres, ').isLength({min: 3}),
     check('age', 'debe contener dos numeros').isLength({max: 2}),
     check('email', 'el mail debe ser correcto').isEmail().not().isEmpty(),
     validarCampos, verifySignUp, 

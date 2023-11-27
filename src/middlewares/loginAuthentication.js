@@ -14,8 +14,8 @@ export const loginAuthentication = async (req, res, next) => {
         if (!user) {  //de no encontrarlo 
             return res.status(401).json({ msg: 'Email invalido' });
         }
-        console.log('Contraseña hash en DB:', user.password); //testing
-        console.log('Contraseña en plano:', password); //testing
+        //console.log('Contraseña hash en DB:', user.password); //testing
+        //console.log('Contraseña en plano:', password); //testing
         const isPasswordValid = await bcrypt.compare(password, user.password);  //compara contraseña de texto plano con el hash guardado en el usuario.
 
         if (!isPasswordValid) { // ⤵⤵ si "isPasswordValid" es NO valida (!) 
@@ -26,6 +26,6 @@ export const loginAuthentication = async (req, res, next) => {
 
     } catch (error) {
         console.error(error);
-        res.status(500).json({ msg: 'Server error' });
+        res.status(500).json({ msg: 'Error en el servidor' });
     }
 };

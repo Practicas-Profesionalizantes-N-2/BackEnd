@@ -38,10 +38,9 @@ class Server{
     //configuramos la conexion a la base de datos a travez de su metodo authenticate
     //lanza un error en caso de que no se concrete la conexion
     connectionDb(){
-        console.log("me estoy ejecutando")
         sequelize.authenticate()
         .then(()=>{
-            console.log('Conexion exitosa a la BD')
+            
         })
         .catch((error)=>{
             console.log('error al conectar con la BD', error)
