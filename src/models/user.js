@@ -50,7 +50,7 @@ User.init({
 User.sync()
 //al ser una promesa usamos el metodo then y .catch para capturar un error en caso que no se sincronicen los cambios
     .then(() => {
-        console.log('La tabla de usuarios ha sido creada');
+        //console.log('La tabla de usuarios ha sido creada');
     })
     .catch((error) => {
         console.error('Error al crear la tabla de usuarios: ', error);
