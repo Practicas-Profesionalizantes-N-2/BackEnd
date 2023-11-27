@@ -5,11 +5,11 @@ import { Sequelize } from 'sequelize';
 //que tipo de base de dato es
 
 const sequelize = new Sequelize(
-    'practicasprofii',
-    'admin',
-    'Bocateamo',
+    process.env.DB_NAME,
+    process.env.DB_USER,
+    process.env.DB_PASSWORD,
     {
-        host: "database-practicas.c5mmp0kpjhya.us-east-2.rds.amazonaws.com",
+        host: process.env.DB_PORT,
         dialect: 'mysql'
     }
 );
