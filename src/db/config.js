@@ -6,7 +6,7 @@ import { Sequelize } from 'sequelize';
 
 const sequelize = new Sequelize(
     process.env.DB_NAME,
-    process.env.DB_USER,
+    process.env.DB_USER | 'admin',
     'Bocateamo',
     {
         host: 'database-practicas.c5mmp0kpjhya.us-east-2.rds.amazonaws.com',
