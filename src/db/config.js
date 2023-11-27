@@ -7,7 +7,7 @@ import { Sequelize } from 'sequelize';
 const sequelize = new Sequelize(
     'practicasprofii',
     'admin',
-    'Bocateamo',
+    'db-practicas',
     {
         host: 'database-practicas.c5mmp0kpjhya.us-east-2.rds.amazonaws.com',
         dialect: 'mysql'
