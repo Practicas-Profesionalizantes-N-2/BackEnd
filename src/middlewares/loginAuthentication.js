@@ -12,14 +12,14 @@ export const loginAuthentication = async (req, res, next) => {
         });
 
         if (!user) {  //de no encontrarlo 
-            return res.status(401).json({ msg: 'Email invalido' });
+            return res.status(401).json({ msg: 'El email ingresado no corresponde a una cuenta' });
         }
         //console.log('Contraseña hash en DB:', user.password); //testing
         //console.log('Contraseña en plano:', password); //testing
         const isPasswordValid = await bcrypt.compare(password, user.password);  //compara contraseña de texto plano con el hash guardado en el usuario.
 
         if (!isPasswordValid) { // ⤵⤵ si "isPasswordValid" es NO valida (!) 
-            return res.status(401).json({ msg: 'contraseña invalida' }); 
+            return res.status(401).json({ msg: 'La contraseña ingresada es incorrecta' }); 
         }
         //si esta todo ok, "next" salta al sgte middleware.
         next();
