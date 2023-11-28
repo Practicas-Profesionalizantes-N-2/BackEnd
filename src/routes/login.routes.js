@@ -16,7 +16,7 @@ router.post('/register' , [
     check('name', 'el Nombre debe contener al menos 3 caracteres ').isLength({min: 3}),
     check('lastname', 'el Apellido debe contener al menos 3 caracteres ').isLength({min: 3}),
     check('age', 'Revise el campo edad').isLength({max: 3, min: 1}),
-    check('email', 'Revise el correo electronico').isEmail().not().isEmpty(),
+    check('email', 'Revise el correo electronico').isEmail(),
     check('password', 'La contraseña requiere como minimo 8 carácteres').not().isEmpty().isLength({min : 8}),
     validarCampos, verifySignUp, 
 ], createUser)
