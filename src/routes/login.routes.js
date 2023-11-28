@@ -5,7 +5,6 @@ import { validarCampos } from "../middlewares/validateCampos.js";
 import { loginAuthentication } from "../middlewares/loginAuthentication.js";
 import { verifySignUp } from  "../middlewares/verifySignUp.js";
 
-
 const router = Router();
 
 //Ruta para obtener todos los usuarios en la base de datos
@@ -18,7 +17,7 @@ router.post('/register' , [
     check('lastname', 'el Apellido debe contener al menos 3 caracteres ').isLength({min: 3}),
     check('age', 'Revise el campo edad').isLength({max: 3, min: 1}),
     check('email', 'Revise el correo electronico').isEmail().not().isEmpty(),
-    check('password', 'La contraseña requiere como minimo 8 carácteres, una mayúscula, una minúscula, un número y un símbolo').isStrong().not().isEmpty(),
+    check('password', 'La contraseña requiere como minimo 8 carácteres').not().isEmpty().isLength({min : 8}),
     validarCampos, verifySignUp, 
 ], createUser)
 
