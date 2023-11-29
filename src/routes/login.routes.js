@@ -24,8 +24,6 @@ router.post('/register' , [
 
 //peticion POST login verificacion credenciales
 router.post('/login', [
-    check('email', 'El Email o Contraseña es incorrecto.').isEmail(),
-    check('password', 'El Email o Contraseña es incorrecto.').not().isEmpty(),
     validarCampos, 
     loginAuthentication,
     loginUser,

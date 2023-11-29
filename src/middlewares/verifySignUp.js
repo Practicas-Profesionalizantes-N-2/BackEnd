@@ -7,7 +7,7 @@ export const verifySignUp = async (req, res, next) => {
     const existingUser = await User.findOne({ where: { email } });
     //si existe el mail,lance un error diciendo que el correo ya esta registrado
     if (existingUser) {
-      return res.status(400).json({ msg: 'El correo electrónico ya está registrado.' });
+      return res.status(401).json({ msg: 'El correo electrónico ya está registrado.' });
     }
     
     next();
