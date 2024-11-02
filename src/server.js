@@ -1,66 +1,79 @@
 import express from 'express';
+import jwt from 'jsonwebtoken';
 import cors from 'cors';
 import morgan from 'morgan';
+import dotenv from 'dotenv';
 import LoginRoutes from './routes/login.routes.js';
 import sequelize from './db/config.js';
+import { Server } from 'socket.io';
+import { createServer } from 'node:http';
+import User from './models/user.js';
+import Message from './models/message.js';
+import chatRoutes from './routes/chat.routes.js';
 
-//este es el archivo principal para configurar todo nuestro entorno
-//de esta manera podemos configurar nuestro servidor para que sea robusto y mantenible en el tiempo.
+dotenv.config(); // Cargar variables de entorno
 
-class Server{
-
-
-
-    constructor(){
+class AppServer {
+    constructor() {
         this.app = express();
-
         this.middlewares();
         this.connectionDb();
-        this.listen();
+        this.socketInit();
         this.routes();
     }
 
-    //funcion para utilizar middlewares
-    middlewares(){
+    middlewares() {
         this.app.use(express.json());
-        this.app.use(cors());
-        this.app.use(morgan());
+        this.app.use(morgan('dev'));
     }
 
-    //configuramos con prefijos las rutas por donde va a ingresar el usuario
-    //colocamos como un sufijo la palabra api, para que sea mas legible a donde e dirige el usuario
-    routes(){
-        this.app.use('/api', LoginRoutes)
-        
-
+    routes() {
+        this.app.use('/api', LoginRoutes);
+        this.app.use('/api/chat', chatRoutes); // Corrección: usar `this.app.use`
     }
 
-    //configuramos la conexion a la base de datos a travez de su metodo authenticate
-    //lanza un error en caso de que no se concrete la conexion
-    connectionDb(){
+    connectionDb() {
         sequelize.authenticate()
-        .then(()=>{
+            .then(() => {
+                console.log('Conectado a la base de datos');
+            })
+            .catch((error) => {
+                console.log('Error al conectar con la BD', error);
+            });
+    }
+
+    socketInit() {
+        const httpServer = createServer(this.app);
+        
+        // Configura Socket.io con WebSocket como transporte preferido
+        const io = new Server(httpServer, {
+            cors:{
+                origin:'*',
+                credentials: true
+            },
+            transports: ['websocket', 'polling']
+        });
+    
+
+    
+        io.on('connection', (socket) => {
+            console.log('Un nuevo usuario se ha conectado');
             
-        })
-        .catch((error)=>{
-            console.log('error al conectar con la BD', error)
-        })
-     
-
-
+            socket.on('chat message', (msg) => {
+                io.emit('chat message', msg); // Emitir el mensaje a todos los clientes conectados
+            });
+            
+            socket.on('disconnect', () => {
+                console.log('Un usuario se ha desconectado');
+            });
+        });
+        
+        // Cambia el puerto aquí si es necesario
+        httpServer.listen(3000, () => {
+            console.log('Servidor corriendo en puerto 3000');
+        });
     }
-     //aca hacemos escucha del servidor y el puerto en donde se va a alojar nuestro servidor
-    //esto siempre va a estar escuchando los cambios que vamos realizando en el servidor.
-    listen(){ 
-        this.app.listen(3000, () => {
-            console.log('servidor corriendo en puerto', 3000)
-        })
-
-    }
-
-
-
-
+    
 }
 
-export default Server;
+export default AppServer;

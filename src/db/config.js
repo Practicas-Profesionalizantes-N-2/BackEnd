@@ -1,15 +1,12 @@
 import { Sequelize } from 'sequelize';
-//variable en la cual creamos una base de datos y la conectamos, pasando por parametros los datos como
-//nombre de la base de datos
-//contraseña si tiene
-//que tipo de base de dato es
 
+// Configuración para la conexión a la base de datos en XAMPP
 const sequelize = new Sequelize(
-    'practicasprofii',
-    'admin',
-    'db-practicas',
+    'practicasprofii', // Nombre de tu base de datos
+    'root', // Usuario por defecto en XAMPP
+    '', // Contraseña (vacía)
     {
-        host: 'database-practicas.c5mmp0kpjhya.us-east-2.rds.amazonaws.com',
+        host: 'localhost', // Conexión local
         dialect: 'mysql'
     }
 );
